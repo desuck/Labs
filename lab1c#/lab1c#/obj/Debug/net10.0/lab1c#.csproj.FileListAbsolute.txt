@@ -1,0 +1,16 @@
+C:\Users\whats\source\repos\lab1c#\lab1c#\bin\Debug\net10.0\lab1c#.exe
+C:\Users\whats\source\repos\lab1c#\lab1c#\bin\Debug\net10.0\lab1c#.deps.json
+C:\Users\whats\source\repos\lab1c#\lab1c#\bin\Debug\net10.0\lab1c#.runtimeconfig.json
+C:\Users\whats\source\repos\lab1c#\lab1c#\bin\Debug\net10.0\lab1c#.runtimeconfig.dev.json
+C:\Users\whats\source\repos\lab1c#\lab1c#\bin\Debug\net10.0\lab1c#.dll
+C:\Users\whats\source\repos\lab1c#\lab1c#\bin\Debug\net10.0\lab1c#.pdb
+C:\Users\whats\source\repos\lab1c#\lab1c#\obj\Debug\net10.0\lab1c#.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\whats\source\repos\lab1c#\lab1c#\obj\Debug\net10.0\lab1c#.AssemblyInfoInputs.cache
+C:\Users\whats\source\repos\lab1c#\lab1c#\obj\Debug\net10.0\lab1c#.AssemblyInfo.cs
+C:\Users\whats\source\repos\lab1c#\lab1c#\obj\Debug\net10.0\lab1c#.csproj.CoreCompileInputs.cache
+C:\Users\whats\source\repos\lab1c#\lab1c#\obj\Debug\net10.0\lab1c#.dll
+C:\Users\whats\source\repos\lab1c#\lab1c#\obj\Debug\net10.0\refint\lab1c#.dll
+C:\Users\whats\source\repos\lab1c#\lab1c#\obj\Debug\net10.0\lab1c#.pdb
+C:\Users\whats\source\repos\lab1c#\lab1c#\obj\Debug\net10.0\lab1c#.genruntimeconfig.cache
+C:\Users\whats\source\repos\lab1c#\lab1c#\obj\Debug\net10.0\ref\lab1c#.dll
+C:\Users\whats\source\repos\lab1c#\lab1c#\obj\Debug\net10.0\lab1c#.csproj.Up2Date
