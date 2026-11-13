@@ -1,0 +1,17 @@
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\bin\Debug\net10.0\lab3.exe
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\bin\Debug\net10.0\lab3.deps.json
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\bin\Debug\net10.0\lab3.runtimeconfig.json
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\bin\Debug\net10.0\lab3.runtimeconfig.dev.json
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\bin\Debug\net10.0\lab3.dll
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\bin\Debug\net10.0\lab3.pdb
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\obj\Debug\net10.0\lab3.GeneratedMSBuildEditorConfig.editorconfig
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\obj\Debug\net10.0\lab3.AssemblyInfoInputs.cache
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\obj\Debug\net10.0\lab3.AssemblyInfo.cs
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\obj\Debug\net10.0\lab3.csproj.CoreCompileInputs.cache
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\obj\Debug\net10.0\lab3.sourcelink.json
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\obj\Debug\net10.0\lab3.dll
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\obj\Debug\net10.0\refint\lab3.dll
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\obj\Debug\net10.0\lab3.pdb
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\obj\Debug\net10.0\lab3.genruntimeconfig.cache
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\obj\Debug\net10.0\ref\lab3.dll
+D:\Egor\Python\Labs\Labs\lab3\lab3\lab3\obj\Debug\net10.0\lab3.csproj.Up2Date
