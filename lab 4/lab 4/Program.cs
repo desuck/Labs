@@ -11,71 +11,121 @@ namespace Lab4
         {
             Console.OutputEncoding = Encoding.UTF8;
 
-            string originalFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test.txt");
-            File.WriteAllText(originalFile, "Секретний текст для четвертої лабораторної роботи. Перевірка шифрування AES!");
-
-            byte[] key = RandomNumberGenerator.GetBytes(32);
-            byte[] iv = RandomNumberGenerator.GetBytes(16);
-
-
-            Console.WriteLine("=== 1. Шифрування файлу ===\n");
-
-            string encryptedFile = Path.ChangeExtension(originalFile, ".dat");
-
-            EncryptFile(originalFile, encryptedFile, key, iv);
-
-            Console.WriteLine($"Вхідний файл:      {originalFile}");
-            Console.WriteLine($"Зашифрований файл: {encryptedFile}");
-            Console.WriteLine($"Вміст оригіналу:   {File.ReadAllText(originalFile)}");
-            Console.WriteLine($"Вміст *.dat (Hex): {Convert.ToHexString(File.ReadAllBytes(encryptedFile))}\n");
-
-
-            Console.WriteLine("=== 2. Розшифрування файлу ===\n");
-
-            string decryptedFile = Path.Combine(
-                Path.GetDirectoryName(encryptedFile)!,
-                Path.GetFileNameWithoutExtension(encryptedFile) + "_decrypted.txt"
-            );
-
-            DecryptFile(encryptedFile, decryptedFile, key, iv);
-
-            Console.WriteLine($"Розшифрований файл: {decryptedFile}");
-            Console.WriteLine($"Вміст після розшифрування: {File.ReadAllText(decryptedFile)}\n");
-
-            Console.WriteLine("Висновок: Алгоритм AES успішно зашифрував вміст файлу у формат *.dat та повністю відновив вихідні дані при наявності правильного ключа та вектора ініціалізації (IV).");
-
-            Console.ReadLine();
-        }
-
-        static void EncryptFile(string inputFile, string outputFile, byte[] key, byte[] iv)
-        {
-            byte[] dataToEncrypt = File.ReadAllBytes(inputFile);
-
-            using (Aes aes = Aes.Create())
+            while (true)
             {
-                aes.Key = key;
-                aes.IV = iv;
+                Console.WriteLine("1 - Зашифрувати файл (у *.dat)");
+                Console.WriteLine("2 - Розшифрувати файл (*.dat)");
+                Console.WriteLine("0 - Вихід");
+                Console.Write("\nОберіть дію: ");
 
-                using (FileStream fsOut = new FileStream(outputFile, FileMode.Create))
-                using (CryptoStream cs = new CryptoStream(fsOut, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                string choice = Console.ReadLine();
+                Console.WriteLine();
+
+                if (choice == "1")
                 {
-                    cs.Write(dataToEncrypt, 0, dataToEncrypt.Length);
+                    Console.Write("Введіть шлях до файлу для шифрування: ");
+                    string inputPath = Console.ReadLine()?.Trim('"');
+
+                    if (!File.Exists(inputPath))
+                    {
+                        Console.WriteLine("Помилка: файл не знайдено!\n");
+                        continue;
+                    }
+
+                    Console.Write("Придумайте та введіть ключ (пароль): ");
+                    string password = Console.ReadLine();
+
+                    string outputPath = Path.ChangeExtension(inputPath, ".dat");
+
+                    EncryptFile(inputPath, outputPath, password);
+                    Console.WriteLine($"Успішно зашифровано! Створено файл: {outputPath}\n");
+                }
+                else if (choice == "2")
+                {
+                    Console.Write("Введіть шлях до зашифрованого файлу (*.dat): ");
+                    string inputPath = Console.ReadLine()?.Trim('"');
+
+                    if (!File.Exists(inputPath))
+                    {
+                        Console.WriteLine("Помилка: файл не знайдено!\n");
+                        continue;
+                    }
+
+                    Console.Write("Введіть ключ (пароль) для розшифрування: ");
+                    string password = Console.ReadLine();
+
+                    string outputPath = Path.Combine(
+                        Path.GetDirectoryName(inputPath),
+                        Path.GetFileNameWithoutExtension(inputPath) + "_decrypted.txt"
+                    );
+
+                    try
+                    {
+                        DecryptFile(inputPath, outputPath, password);
+                        Console.WriteLine($"Успішно розшифровано! Створено файл: {outputPath}\n");
+                    }
+                    catch (CryptographicException)
+                    {
+                        Console.WriteLine("Помилка: невірний ключ або файл пошкоджено!\n");
+                    }
+                }
+                else if (choice == "0")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Невідома команда. Натисніть 1, 2 або 0.\n");
                 }
             }
         }
 
-        static void DecryptFile(string inputFile, string outputFile, byte[] key, byte[] iv)
+        static byte[] GetKeyFromPassword(string password)
         {
+            return SHA256.HashData(Encoding.UTF8.GetBytes(password));
+        }
+
+        static void EncryptFile(string inputFile, string outputFile, string password)
+        {
+            byte[] key = GetKeyFromPassword(password);
+
             using (Aes aes = Aes.Create())
             {
                 aes.Key = key;
-                aes.IV = iv;
+                aes.GenerateIV();
 
-                using (FileStream fsIn = new FileStream(inputFile, FileMode.Open))
-                using (CryptoStream cs = new CryptoStream(fsIn, aes.CreateDecryptor(), CryptoStreamMode.Read))
                 using (FileStream fsOut = new FileStream(outputFile, FileMode.Create))
                 {
-                    cs.CopyTo(fsOut);
+                    fsOut.Write(aes.IV, 0, aes.IV.Length);
+
+                    using (CryptoStream cs = new CryptoStream(fsOut, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                    using (FileStream fsIn = new FileStream(inputFile, FileMode.Open))
+                    {
+                        fsIn.CopyTo(cs);
+                    }
+                }
+            }
+        }
+
+        static void DecryptFile(string inputFile, string outputFile, string password)
+        {
+            byte[] key = GetKeyFromPassword(password);
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = key;
+
+                using (FileStream fsIn = new FileStream(inputFile, FileMode.Open))
+                {
+                    byte[] iv = new byte[16];
+                    fsIn.Read(iv, 0, iv.Length);
+                    aes.IV = iv;
+
+                    using (CryptoStream cs = new CryptoStream(fsIn, aes.CreateDecryptor(), CryptoStreamMode.Read))
+                    using (FileStream fsOut = new FileStream(outputFile, FileMode.Create))
+                    {
+                        cs.CopyTo(fsOut);
+                    }
                 }
             }
         }
